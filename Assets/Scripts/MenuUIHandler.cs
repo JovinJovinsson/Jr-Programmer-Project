@@ -26,6 +26,8 @@ public class MenuUIHandler : MonoBehaviour
         ColorPicker.Init();
         //this will call the NewColorSelected function when the color picker have a color button clicked.
         ColorPicker.onColorChanged += NewColorSelected;
+
+        ColorPicker.SelectColor(MainManager.Instance.TeamColour);
     }
 
     private void StartNew()
@@ -35,10 +37,23 @@ public class MenuUIHandler : MonoBehaviour
 
     private void Exit()
     {
+        MainManager.Instance.SaveColour();
+
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #else
         Application.Quit();
 #endif
+    }
+
+    public void SaveColourClicked()
+    {
+        MainManager.Instance.SaveColour();
+    }
+
+    public void LoadColourClicked()
+    {
+        MainManager.Instance.LoadColour();
+        ColorPicker.SelectColor(MainManager.Instance.TeamColour);
     }
 }
